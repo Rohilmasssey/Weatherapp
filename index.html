@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather app</title>
+    <link rel="shortcut icon" href="./assets/images/favicon-32x32.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css" class="css">
+    <script src="config.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div>
+        <div class="headerContainer">
+            <div class="logobar">
+                <div class="headerdiv"><img class="logo" src="./assets/images/logo.svg" alt=""></div>
+            </div>
+        
+            <div class="custom-select">
+                <div class="selectbar">
+                    <img class="icon-units" src="./assets/images/icon-units.svg" alt="">
+                    <span>Unit</span>
+                    <img class="icon-units" src="./assets/images/icon-dropdown.svg" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="contentbar">
+            <div class="textContent">
+                <h1>How's the</h1>
+                <h1>sky looking</h1>
+                <h1>tody?</h1>
+            </div>
+        </div>
+
+        <div class="searchbar">
+            <div class="searchbars">
+                <div class="searchicon">
+                    <img class="icon" src="./assets/images/icon-search.svg" alt="">
+                    <input class="inputbar" type="text" placeholder="Search for a place...">
+                </div>
+            </div>
+        </div>
+
+        <div class="button">
+            <div class="searchbutton">
+                <input class="search" type="submit" value="Search">
+            </div>
+        </div>
+
+
+        <div class="backgroundimages">
+            <div class="imagecontent"> 
+                <div class="backgroundImage">
+                    <img class="imagebox" src="./assets/images/bg-today-small.svg" alt="">
+                    <img class="sunnyImage" src="./assets/images/icon-sunny.webp" alt="">
+                    <div class="cityandState">
+                        <div class="states"><p class="state"></p></div>
+                        <div class="cities"><p class="city"></p></div>
+                    </div> 
+                    <div class="temp">
+                        <div><p id="temprature"></p></div>
+                        <div class="degreeicon"><p>o</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="boxesdiv">
+            <div class="boxclass">
+                <div class="boxes">
+                    <div class="boxestext"><p>Feels Like</p></div>
+                    <div class="boxdata"><p id="feelslike"></p></div>
+                </div>
+                <div class="boxes">
+                    <div class="boxestext"><p>Humidity</p></div>
+                    <div class="boxdata"><p id="humidity"></p></div>
+                </div>
+                <div class="boxes">
+                    <div class="boxestext"><p>Wind</p></div>
+                    <div class="boxdata"><p id="winds"></p></div>
+                </div>
+                <div class="boxes">
+                    <div class="boxestext" id="Precipitation">Precipitation</div>
+                    <div class="boxdata" id="PrecipitationValue"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dailyForecast">
+            <div>
+                <span>Daily forecast</span>
+            </div>
+        </div>
+
+        <div class="weatherdata">
+            <div class="dataweather">
+                <div class="filldata">
+                    <div class="filldataDivs">
+                        <div><p class="week"></p></div>
+                        <div><img class="imgswa" src="" alt=""></div>
+                        <div class="weekdiv">
+                            <p class="maxtemp">Hello</p>
+                            <p class="mintemp">Hello</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="filldata">
+                    <div class="filldataDivs">
+                        <div><p class="week"></p></div>
+                        <div><img class="imgswa" src="" alt=""></div>
+
+                        <div class="weekdiv">
+                            <p class="maxtemp">Hello</p>
+                            <p class="mintemp">World</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="filldata">
+                    <div class="filldataDivs">
+                        <div><p class="week"></p></div>
+                        <div><img class="imgswa" src="" alt=""></div>
+                        <div class="weekdiv">
+                            <p class="maxtemp">Hello</p>
+                            <p class="mintemp">World</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="filldata">
+                    <div class="filldataDivs">
+                        <div><p class="week"></p></div>
+                        <div><img class="imgswa" src="" alt=""></div>
+                        <div class="weekdiv">
+                            <p class="maxtemp">Hello</p>
+                            <p class="mintemp">World</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="filldata">
+                    <div class="filldataDivs">
+                        <div><p class="week"></p></div>
+                        <div><img class="imgswa" src="" alt=""></div>
+                        <div class="weekdiv">
+                            <p class="maxtemp">Hello</p>
+                            <p class="mintemp">World</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="filldata">
+                    <div class="filldataDivs">
+                        <div><p class="week"></p></div>
+                        <div><img class="imgswa" src="" alt=""></div>
+                        <div class="weekdiv">
+                            <p class="maxtemp">Hello</p>
+                            <p class="mintemp">World</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="filldata" id="lastBox">
+                    <div class="filldataDivs">
+                        <div><p class="week"></p></div>
+                        <div><img class="imgswa" src="" alt=""></div>
+                        <div class="weekdiv">
+                            <p class="maxtemp">Hello</p>
+                            <p class="mintemp">World</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+        <div class="footerdiv">
+            <div class="footerinnerdiv">
+                <div class="innerDiv">
+                    <div class="sameinnerdiv" id="hourcast"><span>Hourly forecast</span></div>
+                    <div class="sameinnerdiv" id="weekdiv">
+                        <div class="unitDiv">
+                            <div>
+                                <span>Week</span>
+                            </div>
+                            <div>
+                                <img class="unitimage" src="./assets/images/icon-dropdown.svg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hourboxdiv">
+                    <div class="hourbox"></div>
+                    <div class="hourbox"></div>
+                    <div class="hourbox"></div>
+                    <div class="hourbox"></div>
+                    <div class="hourbox"></div>
+                    <div class="hourbox"></div>
+                    <div class="hourbox"></div>
+                    <div class="hourbox"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
