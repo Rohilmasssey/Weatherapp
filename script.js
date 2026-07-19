@@ -82,7 +82,7 @@ async function success(position){
         images[index].src = './assets/images/icon-overcast.webp';
         maxtemp[index].textContent = maxtemprature;
         mintemp[index].textContent = mintemprature; 
-    }else if(condition === 'Mist' || condition === 'Fog' || condition === 'Freezing fog' || condition === 'Haze' || condition === 'Smoke' || condition === 'Dust' || condition === 'Sand' || condition === 'Sandstorm' || condition === 'Severe sandstorm'){
+    }else if(condition === 'Mist' || condition === 'Fog' || condition === 'Freezing fog' || condition === 'Haze' || condition === 'Smoke' || condition === 'Dust' || condition === 'Sand' || condition === 'Sandstorm' || condition === 'Severe sandstorm' || condition === 'Dust storm'){
         images[index].src = './assets/images/icon-fog.webp'; 
         maxtemp[index].textContent = maxtemprature;
         mintemp[index].textContent = mintemprature;
@@ -214,7 +214,7 @@ button.addEventListener('click', async () => {
         images[index].src = './assets/images/icon-overcast.webp'; 
         maxtemp[index].textContent = maxtemprature;
         mintemp[index].textContent = mintemprature;
-    }else if(condition === 'Mist' || condition === 'Fog' || condition === 'Freezing fog' || condition === 'Haze' || condition === 'Smoke' || condition === 'Dust' || condition === 'Sand' || condition === 'Sandstorm' || condition === 'Severe sandstorm'){
+    }else if(condition === 'Mist' || condition === 'Fog' || condition === 'Freezing fog' || condition === 'Haze' || condition === 'Smoke' || condition === 'Dust' || condition === 'Sand' || condition === 'Sandstorm' || condition === 'Severe sandstorm' || condition === 'Dust storm'){
         images[index].src = './assets/images/icon-fog.webp'; 
         maxtemp[index].textContent = maxtemprature;
         mintemp[index].textContent = mintemprature;
