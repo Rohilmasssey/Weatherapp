@@ -199,6 +199,7 @@ button.addEventListener('click', async () => {
     const condition = day.day.condition.text;
     const maxtemprature = Math.floor(day.day.maxtemp_c);
     const mintemprature = Math.floor(day.day.mintemp_c);
+    console.log(condition);
     console.log(maxtemprature);
     console.log(condition);
     if(condition === 'Sunny' || condition === 'Clear'){
