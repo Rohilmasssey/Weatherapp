@@ -23,7 +23,7 @@ async function success(position){
     // })
     // .then((data) => {
     const response = await fetch(
-        `http://localhost:3000/geo?lat=${lat}&lon=${lon}`
+        `/geo?lat=${lat}&lon=${lon}`
     );
 
     const result = await response.json();
@@ -147,7 +147,7 @@ button.addEventListener('click', async () => {
     // .then((data) => {
 
     const response = await fetch(
-        `http://localhost:3000/search?city=${city}`
+        `/search?city=${city}`
     );
 
     const result = await response.json();
