@@ -264,18 +264,19 @@ body{
 }
 
 .weatherdata .dataweather{
-    width: 90%; 
+    max-width: 90%; 
     display: flex; 
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 2em;
+    gap: 1.5em;
 
 }
 
 .filldata{
     width: 27%;
+    max-width: 90%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -291,7 +292,7 @@ body{
     height: 1em;
     text-align: center;
     color: white;
-    margin: 1rem;
+    margin-top: 0.7em;
 }
 
 .filldata .imagecenter{
