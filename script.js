@@ -141,7 +141,7 @@ async function success(position){
             hourlyimage[idx].src = './assets/images/icon-partly-cloudy.webp'; 
         }else if(hourimagearray[idx] === 'Cloudy' || hourimagearray[idx] === 'Overcast'){
             hourlyimage[idx].src = './assets/images/icon-overcast.webp';
-        }else if(hourimagearray[idx] === 'Mist' || hourimagearray[idx] === 'Fog' || hourimagearray[idx] === 'Freezing fog' || hourimagearray[idx] === 'Haze' || hourimagearray[idx] === 'Smoke' || hourimagearray[idx] === 'Dust' || hourimagearray[idx] === 'Sand' || hourimagearray[idx] === 'Sandstorm' || hourimagearray[idx] === 'Severe sandstorm' || hourimagearray[idx] === 'Dust storm'){
+        }else if(hourimagearray[idx] === 'Mist' || hourimagearray[idx] === 'Fog' || hourimagearray[idx] === 'Freezing fog' || hourimagearray[idx] === 'Haze' || hourimagearray[idx] === 'Smoke' || hourimagearray[idx] === 'Dust' || hourimagearray[idx] === 'Sand' || hourimagearray[idx] === 'Sandstorm' || hourimagearray[idx] === 'Severe sandstorm' || hourimagearray[idx] === 'Dust storm' || hourimagearray[idx] === 'Smoky haze'){
             hourlyimage[idx].src = './assets/images/icon-fog.webp'; 
         }else if(hourimagearray[idx] === 'Patchy rain nearby' || hourimagearray[idx] === 'Patchy light drizzle' || hourimagearray[idx] === 'Light drizzle' || hourimagearray[idx] === 'Freezing drizzle' || hourimagearray[idx] === 'Patchy light rain'){
             hourlyimage[idx].src = './assets/images/icon-drizzle.webp';
@@ -209,37 +209,49 @@ button.addEventListener('click', async () => {
     ]
      
     forecastData.forecast.forecastday.forEach((day, index) => {
-    const weekName = weekDays[new Date(day.date).getDay()];
-    const week = document.querySelectorAll('.week'); 
-    const images = document.querySelectorAll('.imgswa');
-    const maxtemp = document.querySelectorAll('.maxtemp');
-    const mintemp = document.querySelectorAll('.mintemp');
-    week[index].textContent = weekName;
-    const condition = day.day.condition.text;
-    const maxtemprature = Math.floor(day.day.maxtemp_c);
-    const mintemprature = Math.floor(day.day.mintemp_c);
+        const weekName = weekDays[new Date(day.date).getDay()];
+        const week = document.querySelectorAll('.week'); 
+        const images = document.querySelectorAll('.imgswa');
+        const maxtemp = document.querySelectorAll('.maxtemp');
+        const mintemp = document.querySelectorAll('.mintemp');
+        week[index].textContent = weekName;
+        const condition = day.day.condition.text;
+        const maxtemprature = Math.floor(day.day.maxtemp_c);
+        const mintemprature = Math.floor(day.day.mintemp_c);
 
-    maxtemp[index].textContent = maxtemprature;
-    mintemp[index].textContent = mintemprature;
+        maxtemp[index].textContent = maxtemprature;
+        mintemp[index].textContent = mintemprature;
 
-    if(condition === 'Sunny' || condition === 'Clear'){
-        images[index].src = './assets/images/icon-sunny.webp';
-    }else if(condition === 'Partly Cloudy'){
-        images[index].src = './assets/images/icon-partly-cloudy.webp'; 
-    }else if(condition === 'Cloudy' || condition === 'Overcast'){
-        images[index].src = './assets/images/icon-overcast.webp'; 
-    }else if(condition === 'Mist' || condition === 'Fog' || condition === 'Freezing fog' || condition === 'Haze' || condition === 'Smoke' || condition === 'Dust' || condition === 'Sand' || condition === 'Sandstorm' || condition === 'Severe sandstorm' || condition === 'Dust storm'){
-        images[index].src = './assets/images/icon-fog.webp'; 
-    }else if(condition === 'Patchy rain nearby' || condition === 'Patchy light drizzle' || condition === 'Light drizzle' || condition === 'Freezing drizzle' || condition === 'Patchy light rain'){
-        images[index].src = './assets/images/icon-drizzle.webp';
-    }else if(condition === 'Light rain' || condition === 'Moderate rain' || condition === 'Heavy rain' || condition === 'Light rain shower' || condition === 'Moderate or heavy rain shower' || condition === 'Torrential rain shower' || condition === 'Heavy freezing drizzle'){
-        images[index].src = './assets/images/icon-rain.webp';
-    }else if(condition === 'Thundery outbreaks possible' || condition === 'Patchy light rain with thunder' || condition === 'Moderate or heavy rain with thunder' || condition === 'Thundery outbreaks in nearby'){
-        images[index].src = './assets/images/icon-storm.webp';
-    }else if(condition === 'Patchy snow nearby' || condition === 'Light snow' || condition === 'Moderate snow' || condition === 'Heavy snow' || condition === 'Blizzard' || condition === 'Blowing snow' || condition === 'Ice pellets' || condition === 'Light sleet' || condition === 'Moderate or heavy sleet' || condition === 'Light sleet showers' || condition === 'Patchy light showers of ice pellets' || condition === 'Moderate or heavy showers of ice pellets'){
-        images[index].src = './assets/images/icon-snow.webp';
-    }
-  
+        if(condition === 'Sunny' || condition === 'Clear'){
+            images[index].src = './assets/images/icon-sunny.webp';
+        }else if(condition === 'Partly Cloudy'){
+            images[index].src = './assets/images/icon-partly-cloudy.webp'; 
+        }else if(condition === 'Cloudy' || condition === 'Overcast'){
+            images[index].src = './assets/images/icon-overcast.webp'; 
+        }else if(condition === 'Mist' || condition === 'Fog' || condition === 'Freezing fog' || condition === 'Haze' || condition === 'Smoke' || condition === 'Dust' || condition === 'Sand' || condition === 'Sandstorm' || condition === 'Severe sandstorm' || condition === 'Dust storm'){
+            images[index].src = './assets/images/icon-fog.webp'; 
+        }else if(condition === 'Patchy rain nearby' || condition === 'Patchy light drizzle' || condition === 'Light drizzle' || condition === 'Freezing drizzle' || condition === 'Patchy light rain'){
+            images[index].src = './assets/images/icon-drizzle.webp';
+        }else if(condition === 'Light rain' || condition === 'Moderate rain' || condition === 'Heavy rain' || condition === 'Light rain shower' || condition === 'Moderate or heavy rain shower' || condition === 'Torrential rain shower' || condition === 'Heavy freezing drizzle'){
+            images[index].src = './assets/images/icon-rain.webp';
+        }else if(condition === 'Thundery outbreaks possible' || condition === 'Patchy light rain with thunder' || condition === 'Moderate or heavy rain with thunder' || condition === 'Thundery outbreaks in nearby'){
+            images[index].src = './assets/images/icon-storm.webp';
+        }else if(condition === 'Patchy snow nearby' || condition === 'Light snow' || condition === 'Moderate snow' || condition === 'Heavy snow' || condition === 'Blizzard' || condition === 'Blowing snow' || condition === 'Ice pellets' || condition === 'Light sleet' || condition === 'Moderate or heavy sleet' || condition === 'Light sleet showers' || condition === 'Patchy light showers of ice pellets' || condition === 'Moderate or heavy showers of ice pellets'){
+            images[index].src = './assets/images/icon-snow.webp';
+        }
+
+        const select = document.querySelector('.weekname');
+        const unit = document.querySelector('.unitimage');
+
+        select || unit.addEventListener("click", () => {
+            // const ultag = document.createElement('ul');
+            // const litag = document.createElement('li');
+
+            // ultag.className = 'ultag';
+            // litag.className = 'litag';
+
+
+        })
     });
 });
 
