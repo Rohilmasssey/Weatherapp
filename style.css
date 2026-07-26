@@ -326,13 +326,18 @@ body{
 .weekdiv .maxtemper{
     display: flex;
     justify-content: flex-start;
-    margin-left: 20px;
+    margin-left: 10px;
+    padding-left: 4px;
+    box-sizing: border-box;
+    /* gap: 10px */
 }
 
 .weekdiv .mintemper{
     display: flex;
     justify-content: flex-end;
-    margin-right: 20px;
+    margin-right: 10px;
+    padding-right: 4px;
+    box-sizing: border-box;
 }
 .dataweather .filldata{
     border-radius: 12px;
