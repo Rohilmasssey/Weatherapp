@@ -39,13 +39,13 @@ async function success(position){
 
     
     const weekDays = [
-        'Sun', 
-        'Mon', 
+        'Mon',
         'Tue',
-        'Wed', 
+        'Wed',
         'Thu',
         'Fri',
-        'Sat'
+        'Sat',
+        'Sun'
     ]
 
     const time = {
@@ -61,98 +61,113 @@ async function success(position){
     }
  
     const weekvalues = {
-        0:'Monday',
-        1:'Tuesday',
-        2:'Wednesday',
-        3:'Thursday',
-        4:'Friday',
-        5:'Saturday',
-        6:'Sunday'
+        1:'Monday',
+        2:'Tuesday',
+        3:'Wednesday',
+        4:'Thursday',
+        5:'Friday',
+        6:'Saturday',
+        7:'Sunday'
 
     }
     console.log(forecastData);
-    let weekdaynumber = '';
-    forecastData.forecast.forecastday.forEach((day, index) => {
-        const weekName = weekDays[new Date(day.date).getDay()];
-        weekdaynumber = new Date(day.date).getDay();
-        const dayvalue = new Date(day.date).getDay();    
-        let week = document.querySelectorAll('.week'); 
-        let images = document.querySelectorAll('.imgswa');
+
+    forecastData.daily.temperature_2m_max.forEach((maxtempvalue, index) => {
         const maxtemp = document.querySelectorAll('.maxtemp');
-        const mintemp = document.querySelectorAll('.mintemp');
-        const maxtemprature = Math.floor(day.day.maxtemp_c);
-        const mintemprature = Math.floor(day.day.mintemp_c);
-
-        week[index].textContent = weekName;
-        const condition = day.day.condition.text;
+        const maxtemprature = Math.floor(maxtempvalue);
         maxtemp[index].textContent = maxtemprature;
-        mintemp[index].textContent = mintemprature;
-
-        if(condition === 'Sunny' || condition === 'Clear'){
-            images[index].src = './assets/images/icon-sunny.webp';
-        }else if(condition === 'Partly Cloudy'){
-            images[index].src = './assets/images/icon-partly-cloudy.webp'; 
-        }else if(condition === 'Cloudy' || condition === 'Overcast'){
-            images[index].src = './assets/images/icon-overcast.webp';
-        }else if(condition === 'Mist' || condition === 'Fog' || condition === 'Freezing fog' || condition === 'Haze' || condition === 'Smoke' || condition === 'Dust' || condition === 'Sand' || condition === 'Sandstorm' || condition === 'Severe sandstorm' || condition === 'Dust storm'){
-            images[index].src = './assets/images/icon-fog.webp'; 
-        }else if(condition === 'Patchy rain nearby' || condition === 'Patchy light drizzle' || condition === 'Light drizzle' || condition === 'Freezing drizzle' || condition === 'Patchy light rain'){
-            images[index].src = './assets/images/icon-drizzle.webp';
-        }else if(condition === 'Light rain' || condition === 'Moderate rain' || condition === 'Heavy rain' || condition === 'Light rain shower' || condition === 'Moderate or heavy rain shower' || condition === 'Torrential rain shower' || condition === 'Heavy freezing drizzle'){
-            images[index].src = './assets/images/icon-rain.webp';
-        }else if(condition === 'Thundery outbreaks possible' || condition === 'Patchy light rain with thunder' || condition === 'Moderate or heavy rain with thunder' || condition === 'Thundery outbreaks in nearby'){
-            images[index].src = './assets/images/icon-storm.webp';
-        }else if(condition === 'Patchy snow nearby' || condition === 'Light snow' || condition === 'Moderate snow' || condition === 'Heavy snow' || condition === 'Blizzard' || condition === 'Blowing snow' || condition === 'Ice pellets' || condition === 'Light sleet' || condition === 'Moderate or heavy sleet' || condition === 'Light sleet showers' || condition === 'Patchy light showers of ice pellets' || condition === 'Moderate or heavy showers of ice pellets'){
-            images[index].src = './assets/images/icon-snow.webp';
-        }
-
-      
     });
 
-    const hourdatearray = []; 
-    const hourimagearray = []; 
-    const tempvalues = []; 
+    forecastData.daily.temperature_2m_min.forEach((mintempvalue, index) => {
+        const mintemp = document.querySelectorAll('.mintemp');
+        const mintemprature = Math.floor(mintempvalue);
+        mintemp[index].textContent = mintemprature;
+    });
 
-    forecastData.forecast.forecastday[weekdaynumber].hour.forEach((item) => {
-        const hourdate = new Date(item.time).getHours();
+    forecastData.daily.weather_code.forEach((value, index) => {
+        const images = document.querySelectorAll('.imgswa');
+        let condition = value; 
+        if(condition === 0){
+            images[index].src = './assets/images/icon-sunny.webp';
+        }else if(condition === 1 || condition === 2){
+            images[index].src = './assets/images/icon-partly-cloudy.webp'; 
+        }else if(condition === 3){
+            images[index].src = './assets/images/icon-overcast.webp';
+        }else if(condition === 45 || condition === 48){
+            images[index].src = './assets/images/icon-fog.webp';
+        }else if([51, 53, 55, 56, 57].includes(condition)){
+            images[index].src = './assets/images/icon-drizzle.webp';
+        }else if([61, 63, 65, 66, 67, 80, 81, 82].includes(condition)){
+            images[index].src = './assets/images/icon-rain.webp';
+        }else if([71, 73, 75, 77, 85, 86].includes(condition)){
+            images[index].src = './assets/images/icon-snow.webp';
+        }else if([95, 96, 99].includes(condition)){
+            images[index].src = './assets/images/icon-storm.webp';
+        }
+    });
+
+    forecastData.daily.time.forEach((day, index) => {
+        const weekname = document.querySelector('.weekname');
+        const weekName = weekDays[new Date(day).getDay()];   
+        let week = document.querySelectorAll('.week'); 
+        week[index].textContent = weekName;
+        weekname.textContent = weekvalues[new Date(day).getDay() + 1];
+    });
+
+    const hourdatearray = [];
+    const weathercodeData = []; 
+    const temperaturearray = []; 
+    forecastData.hourly.time.forEach((item, idx) => {
+        const hourdate = new Date(item).getHours();
         if(hourdate >= 15 && hourdate <= 22){
             hourdatearray.push(hourdate);
-            hourimagearray.push(item.condition.text);
-            tempvalues.push(Math.round(item.temp_c));
+            weathercodeData.push(forecastData.hourly.weather_code[idx]);
+            temperaturearray.push(forecastData.hourly.temperature_2m[idx]);
         }
             
     })
-
-    console.log(hourdatearray);
-    console.log(hourimagearray);
-    console.log(tempvalues);
-    hourdatearray.forEach((item, idx) => {
-
+    
+    const newhourdatearray = [...new Set(hourdatearray)];
+    const newweathercode = [...new Set(weathercodeData)];
+    const newtemparray = [...new Set(temperaturearray)];
+    newhourdatearray.forEach((item, idx) => {
         const timing = document.querySelectorAll('.timing');
-        const hourlyimage = document.querySelectorAll('.hourlyimage');  
-        const weekname = document.querySelector('.weekname');
-        const tempreatures_c = document.querySelectorAll('.tempvalues');
-        tempreatures_c[idx].textContent = tempvalues[idx];
+        const hourlyimage = document.querySelectorAll('.hourlyimage');
+        const tempvalues = document.querySelectorAll('.tempvalues');
         timing[idx].textContent = time[item];
-        weekname.textContent = weekvalues[weekdaynumber];
-        if(hourimagearray[idx] === 'Sunny' || hourimagearray[idx] === 'Clear'){
+        tempvalues[idx].textContent = Math.floor(newtemparray[idx]);
+
+        if(newweathercode[idx] === 0){
             hourlyimage[idx].src = './assets/images/icon-sunny.webp';
-        }else if(hourimagearray[idx] === 'Partly Cloudy'){
+        }else if(newweathercode[idx] === 1 || newweathercode[idx] === 2){
             hourlyimage[idx].src = './assets/images/icon-partly-cloudy.webp'; 
-        }else if(hourimagearray[idx] === 'Cloudy' || hourimagearray[idx] === 'Overcast'){
+        }else if(newweathercode[idx] === 3){
             hourlyimage[idx].src = './assets/images/icon-overcast.webp';
-        }else if(hourimagearray[idx] === 'Mist' || hourimagearray[idx] === 'Fog' || hourimagearray[idx] === 'Freezing fog' || hourimagearray[idx] === 'Haze' || hourimagearray[idx] === 'Smoke' || hourimagearray[idx] === 'Dust' || hourimagearray[idx] === 'Sand' || hourimagearray[idx] === 'Sandstorm' || hourimagearray[idx] === 'Severe sandstorm' || hourimagearray[idx] === 'Dust storm' || hourimagearray[idx] === 'Smoky haze'){
-            hourlyimage[idx].src = './assets/images/icon-fog.webp'; 
-        }else if(hourimagearray[idx] === 'Patchy rain nearby' || hourimagearray[idx] === 'Patchy light drizzle' || hourimagearray[idx] === 'Light drizzle' || hourimagearray[idx] === 'Freezing drizzle' || hourimagearray[idx] === 'Patchy light rain'){
+        }else if(newweathercode[idx] === 45 || newweathercode[idx] === 48){
+            hourlyimage[idx].src = './assets/images/icon-fog.webp';
+        }else if([51, 53, 55, 56, 57].includes(newweathercode[idx])){
             hourlyimage[idx].src = './assets/images/icon-drizzle.webp';
-        }else if(hourimagearray[idx] === 'Light rain' || hourimagearray[idx] === 'Moderate rain' || hourimagearray[idx] === 'Heavy rain' || hourimagearray[idx] === 'Light rain shower' || hourimagearray[idx] === 'Moderate or heavy rain shower' || hourimagearray[idx] === 'Torrential rain shower' || hourimagearray[idx] === 'Heavy freezing drizzle' || hourimagearray[idx] === 'Moderate rain at times'){
+        }else if([61, 63, 65, 66, 67, 80, 81, 82].includes(newweathercode[idx])){
             hourlyimage[idx].src = './assets/images/icon-rain.webp';
-        }else if(hourimagearray[idx] === 'Thundery outbreaks possible' || hourimagearray[idx] === 'Patchy light rain with thunder' || hourimagearray[idx] === 'Moderate or heavy rain with thunder' || hourimagearray[idx] === 'Thundery outbreaks in nearby'){
-            hourlyimage[idx].src = './assets/images/icon-storm.webp';
-        }else if(hourimagearray[idx] === 'Patchy snow nearby' || hourimagearray[idx] === 'Light snow' || hourimagearray[idx] === 'Moderate snow' || hourimagearray[idx] === 'Heavy snow' || hourimagearray[idx] === 'Blizzard' || hourimagearray[idx] === 'Blowing snow' || hourimagearray[idx] === 'Ice pellets' || hourimagearray[idx] === 'Light sleet' || hourimagearray[idx] === 'Moderate or heavy sleet' || hourimagearray[idx] === 'Light sleet showers' || hourimagearray[idx] === 'Patchy light showers of ice pellets' || hourimagearray[idx] === 'Moderate or heavy showers of ice pellets'){
+        }else if([71, 73, 75, 77, 85, 86].includes(newweathercode[idx])){
             hourlyimage[idx].src = './assets/images/icon-snow.webp';
+        }else if([95, 96, 99].includes(newweathercode[idx])){
+            hourlyimage[idx].src = './assets/images/icon-storm.webp';
         }
     })
+
+    // let arr = []; 
+
+    for(let i = 0; i < forecastData.hourly.time.length; i++){
+        const weekname = document.querySelector('.weekname');
+        let newdate = new Date(forecastData.hourly.time[i]).toDateString();
+        const dateobj = new Date().toDateString();
+        if(newdate === dateobj){
+            let datematch = weekvalues[new Date(newdate).getDay()];
+            weekname.textContent = datematch;
+        }
+    }
+
      
     const days = [
         'Monday', 
@@ -243,15 +258,5 @@ button.addEventListener('click', async () => {
         const select = document.querySelector('.weekname');
         const unit = document.querySelector('.unitimage');
 
-        select || unit.addEventListener("click", () => {
-            // const ultag = document.createElement('ul');
-            // const litag = document.createElement('li');
-
-            // ultag.className = 'ultag';
-            // litag.className = 'litag';
-
-
-        })
     });
 });
-
