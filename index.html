@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css" class="css">
     <script src="script.js" defer></script>
 </head>
-<body>
+<body class="body">
     <div>
         <div class="headerContainer">
             <div class="logobar">
@@ -69,19 +69,19 @@
             <div class="boxclass">
                 <div class="boxes">
                     <div class="boxestext"><p>Feels Like</p></div>
-                    <div class="boxdata"><p id="feelslike"></p></div>
+                    <div class="boxdata"><p id="feelslike">-</p></div>
                 </div>
                 <div class="boxes">
                     <div class="boxestext"><p>Humidity</p></div>
-                    <div class="boxdata"><p id="humidity"></p></div>
+                    <div class="boxdata"><p id="humidity">-</p></div>
                 </div>
                 <div class="boxes">
                     <div class="boxestext"><p>Wind</p></div>
-                    <div class="boxdata"><p id="winds"></p></div>
+                    <div class="boxdata"><p id="winds">-</p></div>
                 </div>
                 <div class="boxes">
                     <div class="boxestext" id="Precipitation">Precipitation</div>
-                    <div class="boxdata" id="PrecipitationValue"></div>
+                    <div class="boxdata" id="PrecipitationValue">-</div>
                 </div>
             </div>
         </div>
@@ -163,15 +163,26 @@
                     <div class="sameinnerdiv" id="hourcast"><span>Hourly forecast</span></div>
                     <div class="sameinnerdiv">
                         <div class="unitDiv">
-                            <div>
-                                <span class="weekname">Week</span>
+                            <div class="inherit">
+                                <span class="weekname">--</span>
                             </div>
-                            <div style="display: flex; justify-content: center; align-items: center;">
+                            <div class="unitimageinherit">
                                 <img class="unitimage" src="./assets/images/icon-dropdown.svg" alt="">
+                            </div>
+                            <div class="selectweeks">
+                                <ul>
+                                    <li class="addWeeks" value="0">Sunday</li>
+                                    <li class="addWeeks" value="1">Monday</li>
+                                    <li class="addWeeks" value="2">Tuesday</li>
+                                    <li class="addWeeks" value="3">Wednesday</li>
+                                    <li class="addWeeks" value="4">Thursday</li>
+                                    <li class="addWeeks" value="5">Friday</li>
+                                    <li class="addWeeks" value="6">Saturday</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="changeWeek">
+                    <!-- <div class="selectweeks">
                         <ul>
                             <li>Monday</li>
                             <li>Tuesday</li>

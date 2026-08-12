@@ -12,15 +12,6 @@ app.use(cors());
 
 app.use(express.static(path.join(__dirname,'../')))
 
-// const apikey = weatherapikey;
-// const second_api = weathersecondapi;
-
-// console.log(apikey);
-// console.log(second_api);
-
-// app.get('/',(req, res) => {
-//     res.send('Server is running...');
-// });
 
 app.get('/geo',async(req, res) => {
     const {lat, lon} = req.query;
@@ -32,7 +23,6 @@ app.get('/geo',async(req, res) => {
 
         const currentData = await currentResponse.json();
         const forecastResponse = await fetch(
-            // `https://api.weatherapi.com/v1/forecast.json?key=${process.env.weathersecondapi}&q=${currentData.coord.lat},${currentData.coord.lon}&days=7&aqi=yes&alerts=yes`
             `https://api.open-meteo.com/v1/forecast?latitude=${currentData.coord.lat}&longitude=${currentData.coord.lon}&current=temperature_2m,weather_code&hourly=temperature_2m,weather_code,relative_humidity_2m&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=7`
         )
 
@@ -61,7 +51,6 @@ app.get('/search', async(req, res) => {
         const currentData = await currentResponse.json();
 
         const forecastResponse = await fetch(
-            // `https://api.weatherapi.com/v1/forecast.json?key=${process.env.weathersecondapi}&q=${currentData.name}&days=7&aqi=yes&alerts=yes`
             `https://api.open-meteo.com/v1/forecast?latitude=${currentData.coord.lat}&longitude=${currentData.coord.lon}&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=7`
         ); 
 

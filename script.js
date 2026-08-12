@@ -12,11 +12,12 @@ function getLocation(){
     }
 }
 
+
 async function success(position){
     let lat = position.coords.latitude; 
     let lon = position.coords.longitude; 
 
-   
+
     const response = await fetch(
         `/geo?lat=${lat}&lon=${lon}`
     );
@@ -67,7 +68,7 @@ async function success(position){
         4:'Thursday',
         5:'Friday',
         6:'Saturday',
-        7:'Sunday'
+        0:'Sunday'
 
     }
     console.log(forecastData);
@@ -86,6 +87,7 @@ async function success(position){
 
     forecastData.daily.weather_code.forEach((value, index) => {
         const images = document.querySelectorAll('.imgswa');
+        images[index].style.display = "flex";
         let condition = value; 
         if(condition === 0){
             images[index].src = './assets/images/icon-sunny.webp';
@@ -106,12 +108,17 @@ async function success(position){
         }
     });
 
+    const weeks = new Date().getDay();
+    console.log(weeks);
+    const weekname = document.querySelector('.weekname');
+    weekname.textContent = weekvalues[weeks]
     forecastData.daily.time.forEach((day, index) => {
         const weekname = document.querySelector('.weekname');
-        const weekName = weekDays[new Date(day).getDay()];   
+        const weekName = weekDays[new Date(day).getDay() ];   
         let week = document.querySelectorAll('.week'); 
         week[index].textContent = weekName;
-        weekname.textContent = weekvalues[new Date(day).getDay() + 1];
+        const weeks = new Date(day).getDay() + 1;
+        weekname.textContent = weekvalues[weeks];
     });
 
     const hourdatearray = [];
@@ -128,45 +135,56 @@ async function success(position){
     })
     
     const newhourdatearray = [...new Set(hourdatearray)];
-    const newweathercode = [...new Set(weathercodeData)];
     const newtemparray = [...new Set(temperaturearray)];
     newhourdatearray.forEach((item, idx) => {
         const timing = document.querySelectorAll('.timing');
         const hourlyimage = document.querySelectorAll('.hourlyimage');
+        hourlyimage[idx].style.display = "flex";
         const tempvalues = document.querySelectorAll('.tempvalues');
         timing[idx].textContent = time[item];
         tempvalues[idx].textContent = Math.floor(newtemparray[idx]);
 
-        if(newweathercode[idx] === 0){
+        if(weathercodeData[idx] === 0){
             hourlyimage[idx].src = './assets/images/icon-sunny.webp';
-        }else if(newweathercode[idx] === 1 || newweathercode[idx] === 2){
+        }else if(weathercodeData[idx] === 1 || weathercodeData[idx] === 2){
             hourlyimage[idx].src = './assets/images/icon-partly-cloudy.webp'; 
-        }else if(newweathercode[idx] === 3){
+        }else if(weathercodeData[idx] === 3){
             hourlyimage[idx].src = './assets/images/icon-overcast.webp';
-        }else if(newweathercode[idx] === 45 || newweathercode[idx] === 48){
+        }else if(weathercodeData[idx] === 45 || weathercodeData[idx] === 48){
             hourlyimage[idx].src = './assets/images/icon-fog.webp';
-        }else if([51, 53, 55, 56, 57].includes(newweathercode[idx])){
+        }else if([51, 53, 55, 56, 57].includes(weathercodeData[idx])){
             hourlyimage[idx].src = './assets/images/icon-drizzle.webp';
-        }else if([61, 63, 65, 66, 67, 80, 81, 82].includes(newweathercode[idx])){
+        }else if([61, 63, 65, 66, 67, 80, 81, 82].includes(weathercodeData[idx])){
             hourlyimage[idx].src = './assets/images/icon-rain.webp';
-        }else if([71, 73, 75, 77, 85, 86].includes(newweathercode[idx])){
+        }else if([71, 73, 75, 77, 85, 86].includes(weathercodeData[idx])){
             hourlyimage[idx].src = './assets/images/icon-snow.webp';
-        }else if([95, 96, 99].includes(newweathercode[idx])){
+        }else if([95, 96, 99].includes(weathercodeData[idx])){
             hourlyimage[idx].src = './assets/images/icon-storm.webp';
         }
     })
 
-    // let arr = []; 
-
-    for(let i = 0; i < forecastData.hourly.time.length; i++){
-        const weekname = document.querySelector('.weekname');
-        let newdate = new Date(forecastData.hourly.time[i]).toDateString();
-        const dateobj = new Date().toDateString();
-        if(newdate === dateobj){
-            let datematch = weekvalues[new Date(newdate).getDay()];
-            weekname.textContent = datematch;
+    let booleanvalue = JSON.parse(localStorage.getItem('theme')) || false;
+    const selectweeks = document.querySelector('.unitDiv');
+    const weekselector = document.querySelector('.selectweeks');
+    selectweeks.addEventListener("click", () => {
+        booleanvalue = !booleanvalue; 
+        if(booleanvalue === true){
+            weekselector.style.display = "Inline-block";
+        }else{
+            weekselector.style.display = 'none'; 
         }
-    }
+    })
+
+    const addWeeks = document.querySelectorAll(".addWeeks");
+    addWeeks.forEach((value, index) => {
+        value.addEventListener("click", () => {
+            weekname.textContent = weekvalues[Number(index)];
+            weekselector.style.display = "none";
+        });
+    }); 
+
+   
+   
 
      
     const days = [
