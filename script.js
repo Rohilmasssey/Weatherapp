@@ -136,6 +136,7 @@ async function success(position){
     
     const newhourdatearray = [...new Set(hourdatearray)];
     const newtemparray = [...new Set(temperaturearray)];
+    
     newhourdatearray.forEach((item, idx) => {
         const timing = document.querySelectorAll('.timing');
         const hourlyimage = document.querySelectorAll('.hourlyimage');
@@ -163,6 +164,23 @@ async function success(position){
         }
     })
 
+    const weatherCode = [];
+    const temperatureCode = []; 
+
+    for(let i = 0; i < 7; i++){
+        let newarr = []; 
+        let temarr = []; 
+        for(let j = 16; j < 24; j++){
+            newarr.push(forecastData.hourly.weather_code[i * 24 + j]);
+            temarr.push(forecastData.hourly.temperature_2m[i * 24 + j]); 
+        }
+        weatherCode.push(newarr);
+        temperatureCode.push(temarr);
+    }
+
+    console.log(weatherCode);
+    console.log(temperatureCode); 
+
     let booleanvalue = JSON.parse(localStorage.getItem('theme')) || false;
     const selectweeks = document.querySelector('.unitDiv');
     const weekselector = document.querySelector('.selectweeks');
@@ -175,10 +193,39 @@ async function success(position){
         }
     })
 
+    
     const addWeeks = document.querySelectorAll(".addWeeks");
     addWeeks.forEach((value, index) => {
         value.addEventListener("click", () => {
             weekname.textContent = weekvalues[Number(index)];
+            const hourlyimage = document.querySelectorAll('.hourlyimage');
+            let weathervalue = weatherCode[Number(index)]; 
+            for(let i = 0; i < weathervalue.length; i++){
+                console.log(weathervalue[i]);
+                if(weathervalue[i] === 0){
+                    hourlyimage[i].src = './assets/images/icon-sunny.webp';
+                }else if(weathervalue[i] === 1 || weathervalue[i] === 2){
+                    hourlyimage[i].src = './assets/images/icon-partly-cloudy.webp'; 
+                }else if(weathervalue[i] === 3){
+                    hourlyimage[i].src = './assets/images/icon-overcast.webp';
+                }else if(weathervalue[i] === 45 || weathervalue[i] === 48){
+                    hourlyimage[i].src = './assets/images/icon-fog.webp';
+                }else if([51, 53, 55, 56, 57].includes(weathervalue[i])){
+                    hourlyimage[i].src = './assets/images/icon-drizzle.webp';
+                }else if([61, 63, 65, 66, 67, 80, 81, 82].includes(weathervalue[i])){
+                    hourlyimage[i].src = './assets/images/icon-rain.webp';
+                }else if([71, 73, 75, 77, 85, 86].includes(weathervalue[i])){
+                    hourlyimage[i].src = './assets/images/icon-snow.webp';
+                }else if([95, 96, 99].includes(weathervalue[j])){
+                    hourlyimage[i].src = './assets/images/icon-storm.webp';
+                }
+            }
+
+            let tempCode = temperatureCode[Number(index)]; 
+            const tempvalues = document.querySelectorAll('.tempvalues');
+            for(let i = 0; i < tempCode.length; i++){
+                tempvalues[i].textContent = Math.floor(tempCode[i]); 
+            }
             weekselector.style.display = "none";
         });
     }); 
