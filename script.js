@@ -72,7 +72,6 @@ async function success(position){
 
     }
 
-
     forecastData.daily.temperature_2m_max.forEach((maxtempvalue, index) => {
         const maxtemp = document.querySelectorAll('.maxtemp');
         const maxtemprature = Math.floor(maxtempvalue);
