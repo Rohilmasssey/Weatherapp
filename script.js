@@ -71,7 +71,7 @@ async function success(position){
         0:'Sunday'
 
     }
-    console.log(forecastData);
+
 
     forecastData.daily.temperature_2m_max.forEach((maxtempvalue, index) => {
         const maxtemp = document.querySelectorAll('.maxtemp');
