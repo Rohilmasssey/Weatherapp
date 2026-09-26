@@ -19,7 +19,7 @@ async function success(position){
 
 
     const response = await fetch(
-        `/geo?latitude=${lat}&longitude=${lon}`
+        `/geo?lat=${lat}&lon=${lon}`
     );
 
     const result = await response.json();
