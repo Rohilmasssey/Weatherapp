@@ -31,7 +31,7 @@ async function success(position){
     // console.log(result);
     console.log(forecastData);
     
-    let temp = Math.round(data.main.temp); 
+    let temp = Math.round(forecastData.main.temp); 
     document.getElementById("temprature").textContent = temp; 
     document.querySelector('.city').textContent = ' ' + data.name; 
     document.querySelector('.states').textContent = countries[data.sys.country] + ', '; 
