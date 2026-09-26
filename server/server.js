@@ -17,14 +17,14 @@ app.get('/geo',async(req, res) => {
     const {lat, lon} = req.query;
 
     try{
-        const currentResponse = await fetch(
-            // `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.weatherapikey}&units=metric`
-            `https://geocoding-api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}`
-        ); 
+        // const currentResponse = await fetch(
+        //     // `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.weatherapikey}&units=metric`
+        //     `https://geocoding-api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}`
+        // ); 
 
-        const currentData = await currentResponse.json();
+        // const currentData = await currentResponse.json();
         const forecastResponse = await fetch(
-            `https://api.open-meteo.com/v1/forecast?latitude=${currentData.coord.lat}&longitude=${currentData.coord.lon}&current=temperature_2m,weather_code&hourly=temperature_2m,weather_code,relative_humidity_2m&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=7`
+            `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&hourly=temperature_2m,weather_code,relative_humidity_2m&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=7`
         )
 
         const forecastData = await forecastResponse.json();
