@@ -24,7 +24,7 @@ async function success(position){
 
     const result = await response.json();
 
-    console.log(result);
+    // console.log(result);
     const data = result.current;
     const forecastData = result.forecast;
     console.log(forecastData);
@@ -72,11 +72,11 @@ async function success(position){
 
     }
 
-    // forecastData.daily.temperature_2m_max.forEach((maxtempvalue, index) => {
-    //     const maxtemp = document.querySelectorAll('.maxtemp');
-    //     const maxtemprature = Math.floor(maxtempvalue);
-    //     maxtemp[index].textContent = maxtemprature;
-    // });
+    forecastData.daily.temperature_2m_max.forEach((maxtempvalue, index) => {
+        const maxtemp = document.querySelectorAll('.maxtemp');
+        const maxtemprature = Math.floor(maxtempvalue);
+        maxtemp[index].textContent = maxtemprature;
+    });
 
     forecastData.daily.temperature_2m_min.forEach((mintempvalue, index) => {
         const mintemp = document.querySelectorAll('.mintemp');
