@@ -18,7 +18,8 @@ app.get('/geo',async(req, res) => {
 
     try{
         const currentResponse = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.weatherapikey}&units=metric`
+            // `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.weatherapikey}&units=metric`
+            `https://geocoding-api.open-meteo.com/v1/forecast?latitude=${lat}&${lon}`
         ); 
 
         const currentData = await currentResponse.json();
@@ -45,7 +46,8 @@ app.get('/search', async(req, res) => {
     try{
 
         const currentResponse = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.weatherapikey}&units=metric`
+            // `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.weatherapikey}&units=metric`
+            `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`
         );
 
         const currentData = await currentResponse.json();
