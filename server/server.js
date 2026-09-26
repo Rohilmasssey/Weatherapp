@@ -31,7 +31,7 @@ app.get('/geo',async(req, res) => {
 
         console.log(forecastData);
         res.json({
-            current:currentData,
+            // current:currentData,
             forecast:forecastData
         });
     }catch(error){
