@@ -19,7 +19,7 @@ app.get('/geo',async(req, res) => {
     try{
         const currentResponse = await fetch(
             // `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.weatherapikey}&units=metric`
-            `https://geocoding-api.open-meteo.com/v1/forecast?latitude=${lat}&${lon}`
+            `https://geocoding-api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}`
         ); 
 
         const currentData = await currentResponse.json();
