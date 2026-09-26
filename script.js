@@ -28,6 +28,7 @@ async function success(position){
     const data = result.current;
     const forecastData = result.forecast;
     // console.log(result);
+    // console.log(result);
     console.log(forecastData);
     
     console.log(data);
