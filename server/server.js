@@ -29,8 +29,17 @@ app.get('/geo',async(req, res) => {
 
         const forecastData = await forecastResponse.json();
 
-        console.log(forecastData);
-        console.log(currentData);
+        if (!forecastResponse.ok || forecastData.error) {
+            console.log("Open-Meteo Error:", forecastData);
+
+            return res.status(429).json({
+                message: "Open-Meteo API error",
+                error: forecastData
+            });
+        }
+
+        // console.log(forecastData);
+        // console.log(currentData);
         res.json({
             current:currentData,
             forecast:forecastData
@@ -58,6 +67,14 @@ app.get('/search', async(req, res) => {
         ); 
 
         const forecastData = await forecastResponse.json();
+        if (!forecastResponse.ok || forecastData.error) {
+            console.log("Open-Meteo Error:", forecastData);
+
+            return res.status(429).json({
+                message: "Open-Meteo API error",
+                error: forecastData
+            });
+        }
         console.log(forecastData);
         res.json({
             current:currentData, 
