@@ -27,6 +27,9 @@ async function success(position){
     // console.log(result);
     const data = result.current;
     const forecastData = result.forecast;
+    console.log("FULL RESULT:", result);
+    console.log("FORECAST:", result.forecast);
+    console.log("DAILY:", result.forecast?.daily);
     // console.log(result);
     // console.log(result);
     console.log(data);
