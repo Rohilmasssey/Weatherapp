@@ -18,18 +18,19 @@ app.get('/geo',async(req, res) => {
 
     try{
         const currentResponse = await fetch(
-            // `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.weatherapikey}&units=metric`
-            `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&hourly=temperature_2m,weather_code,relative_humidity_2m&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=7`
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.weatherapikey}&units=metric`
+            // `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&hourly=temperature_2m,weather_code,relative_humidity_2m&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=7`
         ); 
 
         const currentData = await currentResponse.json();
         const forecastResponse = await fetch(
-            `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&hourly=temperature_2m,weather_code,relative_humidity_2m&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=7`
+            `https://api.open-meteo.com/v1/forecast?latitude=${currentData.coord.lat}&longitude=${currentData.coord.lon}&current=temperature_2m,weather_code&hourly=temperature_2m,weather_code,relative_humidity_2m&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=7`
         )
 
         const forecastData = await forecastResponse.json();
 
         console.log(forecastData);
+        console.log(currentData);
         res.json({
             current:currentData,
             forecast:forecastData
@@ -46,8 +47,8 @@ app.get('/search', async(req, res) => {
     try{
 
         const currentResponse = await fetch(
-            // `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.weatherapikey}&units=metric`
-            `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`
+            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.weatherapikey}&units=metric`
+            // `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`
         );
 
         const currentData = await currentResponse.json();
