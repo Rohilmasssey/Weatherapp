@@ -22,24 +22,35 @@ app.get('/geo',async(req, res) => {
             // `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&hourly=temperature_2m,weather_code,relative_humidity_2m&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=7`
         ); 
 
+
         const currentData = await currentResponse.json();
+
+        if(!currentResponse.ok){
+            console.log('OpenWeather Error:', currentData)
+
+            return res.status(currentResponse.status).json({
+                message:'OpenWeather API error', 
+                error:currentData
+            })
+        }
+
         const forecastResponse = await fetch(
             `https://api.open-meteo.com/v1/forecast?latitude=${currentData.coord.lat}&longitude=${currentData.coord.lon}&current=temperature_2m,weather_code&hourly=temperature_2m,weather_code,relative_humidity_2m&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=7`
         )
 
         const forecastData = await forecastResponse.json();
 
+
         if (!forecastResponse.ok || forecastData.error) {
             console.log("Open-Meteo Error:", forecastData);
-
-            return res.status(429).json({
+            return res.status(forecastResponse.status).json({
                 message: "Open-Meteo API error",
                 error: forecastData
             });
         }
 
-        // console.log(forecastData);
-        // console.log(currentData);
+        console.log(forecastData);
+        console.log(currentData);
         res.json({
             current:currentData,
             forecast:forecastData
@@ -62,15 +73,24 @@ app.get('/search', async(req, res) => {
 
         const currentData = await currentResponse.json();
 
+        if(!currentResponse.ok){
+            console.log('OpenWeather Error:', currentData)
+
+            return res.status(currentResponse.status).json({
+                message:'OpenWeather API error', 
+                error:currentData
+            })
+        }
+
         const forecastResponse = await fetch(
             `https://api.open-meteo.com/v1/forecast?latitude=${currentData.coord.lat}&longitude=${currentData.coord.lon}&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=7`
         ); 
 
         const forecastData = await forecastResponse.json();
+
         if (!forecastResponse.ok || forecastData.error) {
             console.log("Open-Meteo Error:", forecastData);
-
-            return res.status(429).json({
+            return res.status(forecastResponse.status).json({
                 message: "Open-Meteo API error",
                 error: forecastData
             });
