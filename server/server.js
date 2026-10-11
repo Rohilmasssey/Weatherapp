@@ -16,6 +16,17 @@ app.use(express.static(path.join(__dirname,'../')))
 app.get('/geo',async(req, res) => {
     const {lat, lon} = req.query;
 
+    const cacheKey = `${lat},${lon}`;
+
+    // Check cache
+    const cached = weatherCache.get(cacheKey);
+
+    if(cached && Date.now() - cached.time < 10 * 60 * 1000){
+        console.log('Returning cached data');
+
+        return res.json(cached.data);
+    }
+
     try{
         const currentResponse = await fetch(
             `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.weatherapikey}&units=metric`
@@ -64,6 +75,18 @@ app.get('/geo',async(req, res) => {
 
 app.get('/search', async(req, res) => {
     const {city} = req.query;
+
+    const cacheKey = `${city}`;
+
+    // Check cache
+    const cached = weatherCache.get(cacheKey);
+
+    if(cached && Date.now() - cached.time < 10 * 60 * 1000){
+        console.log('Returning cached data');
+
+        return res.json(cached.data);
+    }
+
     try{
 
         const currentResponse = await fetch(
