@@ -64,10 +64,21 @@ app.get('/geo',async(req, res) => {
 
         console.log(forecastData);
         console.log(currentData);
-        res.json({
-            current:currentData,
+        // res.json({
+        //     current:currentData,
+        //     forecast:forecastData
+        // });
+        const result = {
+            current: currentData, 
             forecast:forecastData
-        });
+        }
+
+        weatherCache.set(cacheKey, {
+            data:result, 
+            time:Date.now()
+        })
+
+        return res.json(result);
     }catch(error){
         res.status(500).json({
             message:error.message
@@ -92,7 +103,7 @@ app.get('/search', async(req, res) => {
     try{
 
         const currentResponse = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.weatherapikey}&units=metric`
+            `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city.trim())}&appid=${process.env.weatherapikey}&units=metric`
             // `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`
         );
 
@@ -125,6 +136,17 @@ app.get('/search', async(req, res) => {
             current:currentData, 
             forecast:forecastData
         });
+        const result = {
+            current:currentData, 
+            forecast:forecastData
+        }
+
+        weatherCache.set(cacheKey, {
+            data:result, 
+            time:Date.now()
+        })
+
+        return res.json(result);
     }catch(error){
         res.status(500).json({
             message:error.message

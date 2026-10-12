@@ -24,6 +24,12 @@ async function success(position){
 
     const result = await response.json();
 
+    if (!response.ok) {
+        console.error('Weather API failed:', result);
+        alert('Weather data abhi available nahi hai.');
+        return;
+    }
+
     // console.log(result);
     const data = result.current;
     const forecastData = result.forecast;
@@ -40,7 +46,7 @@ async function success(position){
     document.querySelector('.states').textContent = countries[data.sys.country] + ', '; 
     document.querySelector('#feelslike').textContent = data.main.feels_like;
     document.querySelector('#humidity').textContent = data.main.humidity; 
-    document.querySelector('#winds').textContent = data.wind.speed + ' km/h';
+    document.querySelector('#winds').textContent = (data.wind.speed * 3.6).toFixed(1) + ' km/h';
     const rain = data.rain?.['1h'] || 0; 
     document.querySelector('#PrecipitationValue').textContent = rain + ' mm'; 
 
@@ -119,7 +125,8 @@ async function success(position){
     weekname.textContent = weekvalues[weeks]
     forecastData.daily.time.forEach((day, index) => {
         const weekname = document.querySelector('.weekname');
-        const weekName = weekDays[new Date(day).getDay() ];   
+        // const weekName = weekDays[new Date(day).getDay() ];
+        const weekName = weekDays[(new Date(day).getDay() + 6) % 7];
         let week = document.querySelectorAll('.week'); 
         week[index].textContent = weekName;
         const weeks = new Date(day).getDay() + 1;
@@ -221,7 +228,7 @@ async function success(position){
                     hourlyimage[i].src = './assets/images/icon-rain.webp';
                 }else if([71, 73, 75, 77, 85, 86].includes(weathervalue[i])){
                     hourlyimage[i].src = './assets/images/icon-snow.webp';
-                }else if([95, 96, 99].includes(weathervalue[j])){
+                }else if([95, 96, 99].includes(weathervalue[i])){
                     hourlyimage[i].src = './assets/images/icon-storm.webp';
                 }
             }
@@ -268,6 +275,13 @@ button.addEventListener('click', async () => {
     );
 
     const result = await response.json();
+
+    if (!response.ok) {
+        console.error('Weather API failed:', result);
+        alert('Weather data abhi available nahi hai.');
+        return;
+    }
+
     const data = result.current; 
     const forecastData = result.forecast;
     // console.log(forecastData)
@@ -277,7 +291,7 @@ button.addEventListener('click', async () => {
     document.querySelector('.states').textContent = countries[data.sys.country] + ', '; 
     document.querySelector('#feelslike').textContent = data.main.feels_like; 
     document.querySelector('#humidity').textContent = data.main.humidity; 
-    document.querySelector('#winds').textContent = data.wind.speed;
+    document.querySelector('#winds').textContent = (data.wind.speed * 3.6).toFixed(1) + ' km/h';;
     const rain = data.rain?.['1h'] || 0; 
     document.querySelector('#PrecipitationValue').textContent = rain + ' mm'; 
 
