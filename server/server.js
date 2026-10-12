@@ -132,10 +132,10 @@ app.get('/search', async(req, res) => {
             });
         }
         console.log(forecastData);
-        res.json({
-            current:currentData, 
-            forecast:forecastData
-        });
+        // res.json({
+        //     current:currentData, 
+        //     forecast:forecastData
+        // });
         const result = {
             current:currentData, 
             forecast:forecastData
